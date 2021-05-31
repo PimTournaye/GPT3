@@ -24,15 +24,19 @@ marker2.bindPopup("<b>This is the midway point.</b><br> Exciting!");
 let marker3 = L.marker(coordsLlanfairfechan).addTo(map);
 marker3.bindPopup("<b>This is the end!</b><br> Time to go back home.");
 
+// Text prompts
 
 //const prompt = "Small intriguing stories about places you pass by on bike rides, like the Wales Coast Path. The first location is Prestatyn. The second location is Llandudno. The final location is Llanfairfechan. 1. Our story begins at Prestatyn, a seaside town with a dark, historical secret "
-const prompt= "Tell me a curious story about the coast of Prestatyn."
+const promptPrestatyn = "Tell me a curious story about the coast of Prestatyn. Something to keep me entertained while I continue my bike ride."
+const promptLlandudno = "We've arrived at Llandudno! What can you tell me about this place? Anything special?";
+const promptLlanfairfechan = "And our trip is done. We ended up in Llanfairfechan. Any history or stories to wrap this trip up?";
 
-let compeletePrompt = async (prompt) => {
+
+let compeletePrompt = async (prompt) => { //
     const gptResponse = await openai.complete({
         engine: 'davinci',
         prompt: prompt,
-        maxTokens: 300,
+        maxTokens: 300, //OpenAI tokens are weird and expensive. Be careful.
         temperature: 0.9,
         topP: 1,
         presencePenalty: 0,
@@ -44,5 +48,3 @@ let compeletePrompt = async (prompt) => {
     });
     console.log(gptResponse.data.choices);
 };
-
-compeletePrompt();
