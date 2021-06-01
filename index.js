@@ -26,7 +26,7 @@ let compeletePrompt = () => {
 
 /*let compeletePrompt = async (prompt) => {
     const gptResponse = await openai.complete({
-        engine: 'davinci',
+        engine: 'instrct-davinci',
         prompt: prompt,
         maxTokens: 300, //OpenAI tokens are weird and expensive. Be careful.
         temperature: 0.9,
