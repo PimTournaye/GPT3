@@ -77,8 +77,8 @@ function renderButtons(prompts){
         console.log(prompt);
 
         HTMLStream += `
-            <h3>First stop: ${prompt[0]}</h3>
-            <span class="generated-text" id="p-${index}">${prompt[1]}</span>
+            <h3>First stop: ${promtArray[index][0]}</h3>
+            <span class="generated-text" id="p-${index}">${prompt[0].text}</span>
             <button class="generate-button" id="b-${index}">Generate</button>
         `;
     })
@@ -101,15 +101,20 @@ async function onLoad(){
 
         resultArray = await Promise.all(promises);
 
-        console.log("INIT POST");
-        renderButtons(promtArray);
+        console.log(resultArray);
 
-        localStorage.setItem('savedPrompts', resultArray);
+        console.log("INIT POST");
+        renderButtons(resultArray);
+
+        localStorage.setItem('savedPrompts', JSON.stringify(resultArray));
 
     }else{
-        resultArray = localStorage.getItem('savedPrompts');
+        resultArray = JSON.parse(localStorage.getItem('savedPrompts'));
         console.log("INIT LOCAL STORAGE");
-        renderButtons(promtArray);
+
+        console.log(resultArray);
+
+        renderButtons(resultArray);
     }
 
     // eventListeners
@@ -122,9 +127,12 @@ async function onLoad(){
 
             // onstabiel
 
-            let oldLocalStorage = localStorage.getItem('savedPrompts');
-            oldLocalStorage[button.id[2]] = response[0].text;
-            localStorage.setItem('savedPrompts', oldLocalStorage);
+            let oldLocalStorage = JSON.parse(localStorage.getItem('savedPrompts'));
+
+            console.log(oldLocalStorage);
+
+            oldLocalStorage[button.id[2]] = [{"text": response[0].text}];
+            localStorage.setItem('savedPrompts', JSON.stringify(oldLocalStorage));
         });
     });
 
