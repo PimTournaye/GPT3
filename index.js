@@ -4,9 +4,6 @@ const express = require('express')
 const app = express()
 const cors = require('cors');
 
-/* app.use(bodyparser.urlencoded({extended: true}));
-app.use(bodyparser.json()); */
-app.use(cors());
 
 // Openai API
 
@@ -20,20 +17,20 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const openai = new OpenAI(OPENAI_API_KEY);
 
 
-let compeletePrompt = () => {
+/*let compeletePrompt = () => {
     return ({
     text: 'View Full Version : Blu-ray on mac mini via HDMI?',
     index: 0,
     logprobs: null,
     finish_reason: 'stop'
   });
-}
+}*/
 
-/*let compeletePrompt = async (prompt) => {
+let compeletePrompt = async (prompt) => {
     const gptResponse = await openai.complete({
-        engine: 'instrct-davinci',
+        engine: 'instruct-davinci',
         prompt: prompt,
-        maxTokens: 300, //OpenAI tokens are weird and expensive. Be careful.
+        maxTokens: 110, //OpenAI tokens are weird and expensive. Be careful.
         temperature: 0.9,
         topP: 1,
         presencePenalty: 0,
@@ -44,21 +41,24 @@ let compeletePrompt = () => {
         stop: ['\n', "testing"]
     });
 
-    //console.log(gptResponse.data.choices);
+    console.log(gptResponse.data.choices);
 
     return gptResponse.data.choices;
-};*/
+};
 
 
 
 // Routes
 
+app.use(express.json());
+app.use(cors());
+
 app.use(express.static('frontend'));
 
 app.post('/generate', async (req, res) => {
-    console.log("getting a post");
+    console.log(req.body.prompt);
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(await compeletePrompt()));
+    res.end(JSON.stringify(await compeletePrompt(req.body.prompt)));
 });
 
 

@@ -73,9 +73,12 @@ async function postRequest($prompt){
 function renderButtons(prompts){
     let HTMLStream = "";
     prompts.map((prompt, index) => {
+
+        console.log(prompt);
+
         HTMLStream += `
             <h3>First stop: ${prompt[0]}</h3>
-            <span class="generated-text" id="p-${index}">${resultArray[index].text}</span>
+            <span class="generated-text" id="p-${index}">${prompt[1]}</span>
             <button class="generate-button" id="b-${index}">Generate</button>
         `;
     })
@@ -92,18 +95,20 @@ async function onLoad(){
         // fetch naar backend
 
         const promises = promtArray.map(async prompt => {
-            const response = await postRequest(prompt[1]);
+            const response = await postRequest({"prompt": prompt[1]});
             return response;
         });
 
         resultArray = await Promise.all(promises);
 
+        console.log("INIT POST");
         renderButtons(promtArray);
 
-        localStorage.setItem('savePrompts', resultArray);
+        localStorage.setItem('savedPrompts', resultArray);
 
     }else{
-        resultArray = localStorage.getItem('savedPrompts')
+        resultArray = localStorage.getItem('savedPrompts');
+        console.log("INIT LOCAL STORAGE");
         renderButtons(promtArray);
     }
 
@@ -111,8 +116,15 @@ async function onLoad(){
 
     document.querySelectorAll(".generate-button").forEach((button) => {
         button.addEventListener('click', async (e) => {
-            const response = await postRequest(promtArray[button.id[2]][1]);
-            document.querySelector(`#p-${button.id[2]}`).innerHTML = response.text;
+            const response = await postRequest({"prompt": promtArray[button.id[2]][1]});
+            console.log(response);
+            document.querySelector(`#p-${button.id[2]}`).innerHTML = response[0].text;
+
+            // onstabiel
+
+            let oldLocalStorage = localStorage.getItem('savedPrompts');
+            oldLocalStorage[button.id[2]] = response[0].text;
+            localStorage.setItem('savedPrompts', oldLocalStorage);
         });
     });
 
