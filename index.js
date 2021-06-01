@@ -3,6 +3,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors');
+const bodyparser = require('body-parser');
 
 
 // Openai API
@@ -56,7 +57,8 @@ app.use(cors());
 app.use(express.static('frontend'));
 
 app.post('/generate', async (req, res) => {
-    console.log(req.body.prompt);
+    console.log("getting a post");
+    console.log(req.body);
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(await compeletePrompt(req.body.prompt)));
 });
