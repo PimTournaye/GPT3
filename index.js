@@ -51,6 +51,7 @@ let compeletePrompt = () => {
 app.use(express.static('frontend'));
 
 app.post('/generate', async (req, res) => {
+    console.log("getting a post");
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(await compeletePrompt()));
 });
