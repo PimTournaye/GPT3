@@ -1,4 +1,4 @@
-console.log(localStorage.length);
+//console.log(localStorage.length);
 
 const url = "http://localhost:3000"
 
@@ -42,10 +42,13 @@ promptArray.map((promt) => {
 
 
 const promtArray = [
-    "Prompt 1",
-    "Prompt 2",
-    "Prompt 3"
+    ["Prestatyn","Tell me a curious story about the coast of Prestatyn. Something to keep me entertained while I continue my bike ride."],
+    ["Llandudno","We've arrived at Llandudno! What can you tell me about this place? Anything special?"],
+    ["Llanfairfechan","And our trip is done. We ended up in Llanfairfechan. Any history or stories to wrap this trip up?"]
+    
 ];
+
+let resultArray = [];
 
 
 async function postRequest($prompt){
@@ -67,25 +70,51 @@ async function postRequest($prompt){
     }
 }
 
+function renderButtons(prompts){
+    let HTMLStream = "";
+    prompts.map((prompt, index) => {
+        HTMLStream += `
+            <h3>First stop: ${prompt[0]}</h3>
+            <span class="generated-text" id="p-${index}">${resultArray[index].text}</span>
+            <button class="generate-button" id="b-${index}">Generate</button>
+        `;
+    })
+
+    document.querySelector("#generate-container").innerHTML = HTMLStream;
+}
+
 
 async function onLoad(){
 
     // check local storage
 
-    let responeArray = [];
-    if(window.localStorage.length == 0){
+    if(!localStorage.getItem('savedPrompts')){
         // fetch naar backend
-        await promtArray.forEach((prompt) => {
-            responeArray.push(postRequest(prompt));
+
+        const promises = promtArray.map(async prompt => {
+            const response = await postRequest(prompt[1]);
+            return response;
         });
 
-        console.log(responeArray);
+        resultArray = await Promise.all(promises);
+
+        renderButtons(promtArray);
+
+        localStorage.setItem('savePrompts', resultArray);
 
     }else{
-
+        resultArray = localStorage.getItem('savedPrompts')
+        renderButtons(promtArray);
     }
 
     // eventListeners
+
+    document.querySelectorAll(".generate-button").forEach((button) => {
+        button.addEventListener('click', async (e) => {
+            const response = await postRequest(promtArray[button.id[2]][1]);
+            document.querySelector(`#p-${button.id[2]}`).innerHTML = response.text;
+        });
+    });
 
 }
 
