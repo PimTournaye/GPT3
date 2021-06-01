@@ -31,17 +31,20 @@ body, html {
   font-weight: bold;
   color: #142814;
   line-height: 1.1em;
+  margin: 0px 0px 25px;
 }
 
-.content .generated-text {
+.content .generate-container .generated-text {
   font-size: 1em;
   color: #788c78;
+  margin: 10px 0px;
 }
 
-.content #generate-button {
+.content .generate-container .generate-button {
   width: auto;
   border: 0px;
   padding: 5px 10px;
+  margin: 10px 0px 30px;
   background-color: #f8f8f8;
   color: #142814;
 }
@@ -57,11 +60,12 @@ body, html {
   position: relative;
 }
 
-.content .card:first-of-type:nth-of-type(n)::after {
-  content: "Powered by OpenAI's GPT-3. Screw PyTorch!";
+.content .card:first-of-type:nth-of-type(n) .credit {
   position: absolute;
   left: 20px;
   bottom: 20px;
+  color: #788c78;
+  font-size: 0.7em;
 }
 
 .col-sm-6 {

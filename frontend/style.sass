@@ -35,17 +35,21 @@ body, html
     font-weight: bold
     color: $mainTextColor
     line-height: 1.1em
+    margin: 0px 0px 25px
 
-  .generated-text
-    font-size: 1em
-    color: $lightTextColor
+  .generate-container
+    .generated-text
+      font-size: 1em
+      color: $lightTextColor
+      margin: 10px 0px
 
-  #generate-button
-    width: auto
-    border: 0px
-    padding: 5px 10px
-    background-color: $backgroundColor
-    color: $mainTextColor
+    .generate-button
+      width: auto
+      border: 0px
+      padding: 5px 10px
+      margin: 10px 0px 30px
+      background-color: $backgroundColor
+      color: $mainTextColor
 
 
   #map
@@ -57,11 +61,12 @@ body, html
   .card:first-of-type:nth-of-type(n)
     position: relative
 
-    &::after
-      content: "Powered by OpenAI's GPT-3. Screw PyTorch!"
+    .credit
       position: absolute
       left: 20px
       bottom: 20px
+      color: $lightTextColor
+      font-size: 0.7em
 
 
 // overides
