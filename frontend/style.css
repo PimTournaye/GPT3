@@ -1,0 +1,78 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8 !important;
+}
+
+.banner {
+  width: 100%;
+  padding: 15px 0px;
+  background-color: white;
+  position: absolute;
+}
+
+.banner .title {
+  font-size: 1.5em;
+  font-weight: bolder;
+  color: #142814;
+}
+
+.content {
+  height: 100vh;
+  padding: 110px 0px 0px;
+}
+
+.content * {
+  display: block;
+}
+
+.content .sub-title {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #142814;
+  line-height: 1.1em;
+}
+
+.content .generated-text {
+  font-size: 1em;
+  color: #788c78;
+}
+
+.content #generate-button {
+  width: auto;
+  border: 0px;
+  padding: 5px 10px;
+  background-color: #f8f8f8;
+  color: #142814;
+}
+
+.content #map {
+  width: 500px;
+  height: 500px;
+  background-color: red;
+  margin: auto;
+}
+
+.content .card:first-of-type:nth-of-type(n) {
+  position: relative;
+}
+
+.content .card:first-of-type:nth-of-type(n)::after {
+  content: "Powered by OpenAI's GPT-3. Screw PyTorch!";
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+
+.col-sm-6 {
+  position: relative !important;
+}
+
+.card {
+  height: 100% !important;
+  background-color: white !important;
+  border-radius: 0px !important;
+  border: 0px !important;
+  padding: 20px;
+}
+/*# sourceMappingURL=style.css.map */

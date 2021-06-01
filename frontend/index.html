@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road Stories</title>
 
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -19,25 +20,30 @@
 
 <body>
 
-    <head>
-        <h1>Road Stories</h1>
-        <h2>A tool to rediscover your local region.</h2>
-    </head>
-    <main>
-        <div class="content">
-            <label for="location1">What's your first stop?</label>
-            <input type="text">
-            <div id="result1"></div>
-            <label for="location1">Where are you stopping next?</label>
-            <input type="text">
-            <div id="result1"></div>
-            <label for="location1">Where are you ending</label>
-            <input type="text">
-            <div id="result1"></div>
+    <div class="banner">
+        <div class="container-fluid">
+            <span class="title">Road Stories</span>
         </div>
-        <div id="map"></div>
-    </main>
-    <footer>Powered by OpenAI's GPT-3. Screw PyTorch!</footer>
+    </div>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <span class="sub-title">A tool to rediscover<br/>your local region.</span>
+                        <span class="generated-text">[Generated text here]</span>
+                        <button id="generate-button">Generate</button>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
