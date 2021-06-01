@@ -1,5 +1,3 @@
-
-
 const coordsPrestatyn =         [53.335400, -3.406320];
 const coordsLlandudno =         [53.326542, -3.834460];
 const coordsLlanfairfechan =    [53.253899, -3.978390];
